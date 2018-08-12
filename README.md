@@ -13,7 +13,7 @@
 3. Load the file using `source('run_analysis.R')` command, please ignore the warnings.
 4. Run the function `run_analysis()`
 5. After few seconds as the funtion completes `tidyer_data.txt` file will be created, which contains tidyer data
-6. Please codebook in codebook.md
+6. Please codebook in [codebook.md](https://github.com/siraj94farhan/datacleaning/blob/master/codebook.md)
 
 ###### As given in the instruction these 5 tasks need to be completed
 
