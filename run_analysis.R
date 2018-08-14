@@ -1,38 +1,18 @@
+library(data.table)
 library(plyr)
 library(dplyr)
-library(stringr)
-library(readr)
-library(data.table)
 
-datasetPath <- "UCI HAR Dataset"
+datasetPath <- "/Users/siraj/projects/learning/examples/UCI HAR Dataset"
 
 ## Returns character[]
 # Reads the features and cleans it
 get_features <- function() {
 
   # Reads the features from features.txt
-  features_text <- read_file(paste(datasetPath, "features.txt", sep = "/"))
-
-  ## Cleans the feature vector
-  # Excludes serial numbers from each feature
-  features <- str_extract_all(features_text, " .*")
-  # Trims extra spaces
-  features <- trimws(features[[1]])
+  features <- read.table(paste(datasetPath, "features.txt", sep = "/"))$V2
 
   # returns the features
   features
-}
-
-# Returns numeric[]
-# Coverts character[] to numeric[]
-convert_to_numeric <- function(x) {
-
-  # Remove fisrt item, which is empty string
-  x <- x[[1]][c(-1)]
-
-  # Converts the character[] into numeric[]
-  x <- as.numeric(x)
-  x
 }
 
 ## Returns data frame
@@ -41,16 +21,7 @@ convert_to_numeric <- function(x) {
 get_X <- function(filePath) {
 
   # Read the data as character[] for each line
-  X_text <- read_lines(paste(datasetPath, filePath, sep = "/"))
-
-  # Split each line into it's value separated by space
-  X_list <- lapply(X_text, strsplit, " +")
-
-  # Convert the values from character[] to numeric[]
-  X <- lapply(X_list, convert_to_numeric)
-
-  # Creates a data frame by binding a list of vectors
-  X <- data.frame(do.call(rbind ,X))
+  X <- read.table(paste(datasetPath, filePath, sep = "/"))
 
   # Assign column names obtained from get_features()
   colnames(X) <- get_features()
@@ -67,10 +38,7 @@ get_X <- function(filePath) {
 get_Y <- function(filePath) {
 
   # Read the data as character[] for each line
-  y <- read_lines(paste(datasetPath, filePath, sep = "/"))
-
-  # Converts the  character[] into factor
-  y <- as.factor(y)
+  y <- read.table(paste(datasetPath, filePath, sep = "/"))$V1
 
   # No. 3 from the instruction
   # Uses descriptive activity names to name the activities in the data set
@@ -83,7 +51,7 @@ get_Y <- function(filePath) {
 get_subjects <-  function(filePath) {
 
   # Read the data as character[] for each line
-  subjects <- read_lines(paste(datasetPath, filePath, sep = "/"))
+  subjects <- read.table(paste(datasetPath, filePath, sep = "/"))$V1
 
   # Converts character[] into factors
   subjects <- as.factor(subjects)
