@@ -2,7 +2,7 @@ library(data.table)
 library(plyr)
 library(dplyr)
 
-datasetPath <- "/Users/siraj/projects/learning/examples/UCI HAR Dataset"
+datasetPath <- "UCI HAR Dataset"
 
 ## Returns character[]
 # Reads the features and cleans it
